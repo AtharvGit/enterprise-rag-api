@@ -1,5 +1,5 @@
 import os
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from typing import List
@@ -10,11 +10,11 @@ class RetrievalService:
         
         # Swapped to a free, highly efficient local embedding model
         print("Loading local embedding model (this may take a moment on the first run)...")
-        self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-        
+        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")        
         self.vector_store = Chroma(
+            collection_name="enterprise_rag_docs",
             embedding_function=self.embeddings,
-            persist_directory=self.persist_directory
+            persist_directory="./data/processed/chroma_db"
         )
 
     def ingest_documents(self, chunks: List[Document]):
