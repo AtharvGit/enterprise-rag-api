@@ -10,7 +10,7 @@ class RetrievalService:
         
         # Swapped to a free, highly efficient local embedding model
         print("Loading local embedding model (this may take a moment on the first run)...")
-        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")        
+        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")        
         self.vector_store = Chroma(
             collection_name="enterprise_rag_docs",
             embedding_function=self.embeddings,
